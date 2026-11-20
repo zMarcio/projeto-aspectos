@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador de Linguagens Formais</title>
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<main>
+  <h1>Simulador de Linguagens Formais e Modelos Computacionais</h1>
+  <p class="sub">Escolha um módulo nas abas. A cadeia vazia é escrita como <code>λ</code>.</p>
+
+  <!-- ===== ABAS: para um módulo novo, adicione um botão aqui e uma <div class="aba"> abaixo ===== -->
+  <nav class="abas">
+    <button data-aba="aba-linguagem" class="ativa">1. Linguagens Formais</button>
+    <button data-aba="aba-afd">2. AFD</button>
+    <button data-aba="aba-afn">3. AFN</button>
+  </nav>
+
+  <!-- ===================== 1. LINGUAGENS FORMAIS ===================== -->
+  <div class="aba ativa" id="aba-linguagem">
+    <section>
+      <h2>Definição</h2>
+      <div class="grid">
+        <div><label for="lf-alfabeto">Alfabeto Σ (separado por vírgula)</label><input id="lf-alfabeto" placeholder="a, b"></div>
+        <div><label for="lf-linguagem">Linguagem L (palavras separadas por vírgula, opcional)</label><input id="lf-linguagem" placeholder="ab, ba, abba"></div>
+      </div>
+      <div class="grid" style="margin-top:12px">
+        <div><label for="lf-cadeia">Cadeia w</label><input id="lf-cadeia" placeholder="abba"></div>
+        <div><label for="lf-cadeia2">Cadeia w₂ (para concatenar)</label><input id="lf-cadeia2" placeholder="ab"></div>
+        <div><label for="lf-tamanho">Gerar Σ* e Σ+ até tamanho n</label><input id="lf-tamanho" type="number" min="0" max="10" value="3"></div>
+      </div>
+      <div class="actions">
+        <button id="lf-exemplo">Carregar exemplo</button>
+        <button class="primary" id="lf-calcular">Calcular</button>
+      </div>
+    </section>
+
+    <section id="lf-saida" class="hidden">
+      <h2>Resultado</h2>
+      <div id="lf-resultado" class="resultado"></div>
+      <div id="lf-detalhes"></div>
+    </section>
+  </div>
+
+  <!-- ===================== 2. AFD ===================== -->
+  <div class="aba" id="aba-afd">
+    <section>
+      <h2>Autômato Finito Determinístico M = (Q, Σ, δ, q0, F)</h2>
+      <div class="grid">
+        <div><label for="afd-estados">Estados Q (vírgula)</label><input id="afd-estados" placeholder="q0, q1, q2"></div>
+        <div><label for="afd-alfabeto">Alfabeto Σ (vírgula)</label><input id="afd-alfabeto" placeholder="a, b"></div>
+        <div><label for="afd-inicial">Estado inicial</label><input id="afd-inicial" placeholder="q0"></div>
+        <div><label for="afd-finais">Estados finais F (vírgula)</label><input id="afd-finais" placeholder="q2"></div>
+      </div>
+      <div style="margin-top:12px">
+        <label for="afd-transicoes">Transições δ — uma por linha: <code>origem símbolo destino</code></label>
+        <textarea id="afd-transicoes" placeholder="q0 a q1&#10;q1 b q2"></textarea>
+        <p class="hint">Cada par (estado, símbolo) só pode aparecer uma vez. Se faltar transição, a cadeia é rejeitada.</p>
+      </div>
+      <div class="grid" style="margin-top:12px">
+        <div><label for="afd-cadeia">Cadeia de entrada</label><input id="afd-cadeia" placeholder="ab"></div>
+      </div>
+      <div class="actions">
+        <button id="afd-exemplo">Exemplo do enunciado</button>
+        <button id="afd-exemplo2">Exemplo: nº par de a</button>
+        <button id="afd-abrir">Abrir JSON…</button>
+        <button id="afd-baixar">Salvar JSON</button>
+        <input type="file" id="afd-arquivo" accept=".json,application/json" class="hidden">
+        <button class="primary" id="afd-simular">Executar</button>
+      </div>
+    </section>
+
+    <section id="afd-saida" class="hidden">
+      <h2>Resultado</h2>
+      <div id="afd-resultado" class="resultado"></div>
+      <div id="afd-visual">
+        <div class="caminho" id="afd-caminho"></div>
+        <div class="estados" id="afd-desenho"></div>
+        <div class="info" id="afd-info"></div>
+        <div class="actions">
+          <button id="afd-inicio">⏮</button><button id="afd-anterior">◀</button>
+          <button id="afd-proximo">▶</button><button id="afd-fim">⏭</button>
+        </div>
+        <h2 style="margin-top:18px">Passo a passo</h2>
+        <div class="table-wrap"><table id="afd-passos">
+          <thead><tr><th>Passo</th><th>Estado</th><th>Lê</th><th>Vai para</th><th>Falta ler</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== 3. AFN ===================== -->
+  <div class="aba" id="aba-afn">
+    <section>
+      <h2>Autômato Finito Não Determinístico M = (Q, Σ, δ, q0, F)</h2>
+      <div class="grid">
+        <div><label for="afn-estados">Estados Q (vírgula)</label><input id="afn-estados" placeholder="q0, q1, q2"></div>
+        <div><label for="afn-alfabeto">Alfabeto Σ (vírgula)</label><input id="afn-alfabeto" placeholder="a, b"></div>
+        <div><label for="afn-inicial">Estado inicial</label><input id="afn-inicial" placeholder="q0"></div>
+        <div><label for="afn-finais">Estados finais F (vírgula)</label><input id="afn-finais" placeholder="q2"></div>
+      </div>
+      <div style="margin-top:12px">
+        <label for="afn-transicoes">Transições δ — uma por linha: <code>origem símbolo destino</code></label>
+        <textarea id="afn-transicoes" placeholder="q0 a q0&#10;q0 a q1&#10;q0 λ q2"></textarea>
+        <p class="hint">Pode repetir (estado, símbolo) com destinos diferentes. Use <code>λ</code> como símbolo para transição vazia.</p>
+      </div>
+      <div class="grid" style="margin-top:12px">
+        <div><label for="afn-cadeia">Cadeia de entrada</label><input id="afn-cadeia" placeholder="babab"></div>
+      </div>
+      <div class="actions">
+        <button id="afn-exemplo">Exemplo: termina em ab</button>
+        <button id="afn-exemplo2">Exemplo com λ: a* ∪ b*</button>
+        <button id="afn-abrir">Abrir JSON…</button>
+        <button id="afn-baixar">Salvar JSON</button>
+        <input type="file" id="afn-arquivo" accept=".json,application/json" class="hidden">
+        <button class="primary" id="afn-simular">Executar</button>
+      </div>
+    </section>
+
+    <section id="afn-saida" class="hidden">
+      <h2>Resultado</h2>
+      <div id="afn-resultado" class="resultado"></div>
+      <div id="afn-visual">
+        <div class="caminho" id="afn-caminho"></div>
+        <div class="estados" id="afn-desenho"></div>
+        <div class="info" id="afn-info"></div>
+        <div class="actions">
+          <button id="afn-inicio">⏮</button><button id="afn-anterior">◀</button>
+          <button id="afn-proximo">▶</button><button id="afn-fim">⏭</button>
+        </div>
+        <h2 style="margin-top:18px">Passo a passo</h2>
+        <div class="table-wrap"><table id="afn-passos">
+          <thead><tr><th>Passo</th><th>Estados antes</th><th>Lê</th><th>Move</th><th>Depois do fecho-λ</th><th>Falta ler</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="js/comum.js"></script>
+<script src="js/automato.js"></script>
+<script src="js/linguagem.js"></script>
+<script src="js/afd.js"></script>
+<script src="js/afn.js"></script>
+</body>
+</html>

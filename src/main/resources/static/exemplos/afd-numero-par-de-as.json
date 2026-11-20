@@ -1,0 +1,13 @@
+{
+  "estados": ["par", "impar"],
+  "alfabeto": ["a", "b"],
+  "estadoInicial": "par",
+  "estadosFinais": ["par"],
+  "transicoes": [
+    { "origem": "par", "simbolo": "a", "destino": "impar" },
+    { "origem": "par", "simbolo": "b", "destino": "par" },
+    { "origem": "impar", "simbolo": "a", "destino": "par" },
+    { "origem": "impar", "simbolo": "b", "destino": "impar" }
+  ],
+  "cadeia": "abab"
+}
