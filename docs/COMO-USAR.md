@@ -2,11 +2,11 @@
 
 ## 1. Rodar
 
-Precisa de **JDK 21** (se não tiver, o Gradle baixa sozinho na primeira execução).
+Use **JDK 21** e **Node.js com npm**. O Gradle prepara as visualizações React junto dos recursos da aplicação.
 
 ```bash
 ./gradlew bootRun          # Linux / macOS
-gradlew.bat bootRun        # Windows
+.\gradlew.bat bootRun     # PowerShell
 ```
 
 Abra **http://localhost:8080** (não abra o `index.html` direto do disco nem pelo Live Server:

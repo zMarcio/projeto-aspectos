@@ -80,17 +80,7 @@
       <div id="afd-resultado" class="resultado"></div>
       <div id="afd-visual">
         <div class="caminho" id="afd-caminho"></div>
-        <div class="estados" id="afd-desenho"></div>
-        <div class="info" id="afd-info"></div>
-        <div class="actions">
-          <button id="afd-inicio">⏮</button><button id="afd-anterior">◀</button>
-          <button id="afd-proximo">▶</button><button id="afd-fim">⏭</button>
-        </div>
-        <h2 style="margin-top:18px">Passo a passo</h2>
-        <div class="table-wrap"><table id="afd-passos">
-          <thead><tr><th>Passo</th><th>Estado</th><th>Lê</th><th>Vai para</th><th>Falta ler</th></tr></thead>
-          <tbody></tbody>
-        </table></div>
+        <div id="afd-quadros"></div>
       </div>
     </section>
   </div>
@@ -128,17 +118,7 @@
       <div id="afn-resultado" class="resultado"></div>
       <div id="afn-visual">
         <div class="caminho" id="afn-caminho"></div>
-        <div class="estados" id="afn-desenho"></div>
-        <div class="info" id="afn-info"></div>
-        <div class="actions">
-          <button id="afn-inicio">⏮</button><button id="afn-anterior">◀</button>
-          <button id="afn-proximo">▶</button><button id="afn-fim">⏭</button>
-        </div>
-        <h2 style="margin-top:18px">Passo a passo</h2>
-        <div class="table-wrap"><table id="afn-passos">
-          <thead><tr><th>Passo</th><th>Estados antes</th><th>Lê</th><th>Move</th><th>Depois do fecho-λ</th><th>Falta ler</th></tr></thead>
-          <tbody></tbody>
-        </table></div>
+        <div id="afn-quadros"></div>
       </div>
     </section>
   </div>
@@ -198,19 +178,7 @@
     <section id="ap-saida" class="hidden">
       <h2>Resultado</h2>
       <div id="ap-resultado" class="resultado" role="status"></div>
-      <div id="ap-visual">
-        <p id="ap-configuracao" class="info" aria-live="polite"></p>
-        <h2>Pilha (topo à esquerda)</h2>
-        <div id="ap-pilha" class="celulas"></div>
-        <div class="actions">
-          <button id="ap-inicio" aria-label="Primeiro passo">⏮</button><button id="ap-anterior" aria-label="Passo anterior">◀</button>
-          <button id="ap-proximo" aria-label="Próximo passo">▶</button><button id="ap-fim" aria-label="Último passo">⏭</button>
-        </div>
-        <div class="table-wrap campo-modulo"><table id="ap-passos">
-          <thead><tr><th>Passo</th><th>Lê</th><th>Estado</th><th>Símbolos consumidos</th><th>Pilha</th></tr></thead>
-          <tbody></tbody>
-        </table></div>
-      </div>
+      <div id="ap-visual"><div id="ap-quadros"></div></div>
     </section>
   </div>
 
@@ -240,16 +208,7 @@
       <div id="mt-resultado" class="resultado" role="status"></div>
       <div id="mt-visual">
         <p id="mt-soma">Saída final da fita <code id="mt-saida-fita"></code></p>
-        <p id="mt-configuracao" class="info" aria-live="polite"></p>
-        <div id="mt-fita" class="celulas"></div>
-        <div class="actions">
-          <button id="mt-inicio" aria-label="Primeiro passo">⏮</button><button id="mt-anterior" aria-label="Passo anterior">◀</button>
-          <button id="mt-proximo" aria-label="Próximo passo">▶</button><button id="mt-fim" aria-label="Último passo">⏭</button>
-        </div>
-        <div class="table-wrap campo-modulo"><table id="mt-passos">
-          <thead><tr><th>Passo</th><th>Estado</th><th>Símbolo sob o cabeçote</th><th>Posição do cabeçote</th></tr></thead>
-          <tbody></tbody>
-        </table></div>
+        <div id="mt-quadros"></div>
       </div>
     </section>
   </div>
@@ -258,11 +217,11 @@
 <script src="js/comum.js"></script>
 <script src="js/automato.js"></script>
 <script src="js/linguagem.js"></script>
-<script src="js/afd.js"></script>
-<script src="js/afn.js"></script>
 <script src="js/simulacao.js"></script>
 <script src="js/glc.js"></script>
-<script src="js/ap.js"></script>
-<script src="js/turing.js"></script>
+<script type="module" src="js/afd.js"></script>
+<script type="module" src="js/afn.js"></script>
+<script type="module" src="js/ap.js"></script>
+<script type="module" src="js/turing.js"></script>
 </body>
 </html>

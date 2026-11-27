@@ -28,10 +28,10 @@ Status possíveis: `📝 Rascunho` · `🚧 Em desenvolvimento` · `✅ Implemen
 | 5 | Máquina de Turing                | [006](006-maquina-turing.md) | ✅ Implementado (soma unária) | `POST /api/turing` | 6. Máquina de Turing |
 | 6 | Complexidade Computacional       | [007](007-complexidade.md) | ✅ Análise registrada | — | — |
 
-## 3. Arquitetura (igual ao simulador de Máquina de Turing de referência)
+## 3. Arquitetura
 
 ```
-Navegador (HTML + CSS + JS puro)      Spring Boot (Java 21)
+Navegador (HTML, CSS, JS e React)     Spring Boot (Java 21)
 ┌──────────────────────────┐  JSON   ┌───────────────────────────────┐
 │ index.html  (abas)       │ ──────▶ │ XxxController  (@PostMapping) │
 │ js/<modulo>.js           │ ◀────── │   └─ classe de domínio (lógica)│
@@ -44,30 +44,34 @@ Navegador (HTML + CSS + JS puro)      Spring Boot (Java 21)
   (sem nada de Spring), `ResultadoXxx`/`PassoXxx` (records da saída) e `XxxController`.
 - **Erros de validação**: lance `IllegalArgumentException("mensagem amigável")`.
   O `TratadorDeErros` devolve `400 {"erro": "mensagem"}` e a página mostra a faixa vermelha.
-- **Front**: uma `<div class="aba">` por módulo em `index.html` + um arquivo `js/<modulo>.js`.
-  Funções comuns em `js/comum.js` (abas, `postJson`, `lista`, `esc`).
-  GLC, AP e MT usam `js/simulacao.js` para os formulários e a navegação pelos passos de AP e MT.
+- **Front**: uma aba por módulo em `index.html`, com formulários JavaScript e funções comuns em `js/comum.js`.
+  GLC, AP e MT usam `js/simulacao.js` para os formulários. AFD, AFN, AP e MT usam componentes React em `frontend/src/` para a visualização e a navegação pelos passos.
 - Exemplos de entrada em `src/main/resources/static/exemplos/*.json` (servidos pela página e usados no README).
 
 ## 4. Convenções
 
 - Código e mensagens em **português**, nomes simples (`executar`, `adicionarTransicao`, `fechoLambda`).
-- Código "burro de propósito": laços simples, `Map`/`Set` do Java, sem frameworks extras, sem Lombok.
+- No backend, use laços simples e as coleções `Map` e `Set` do Java. O projeto usa Spring Boot e records Java.
 - Cadeia vazia: escrita e exibida como **`λ`** (também aceita vazio). Símbolos de alfabeto têm 1 caractere.
 - Toda classe de domínio tem teste em `src/test/java/...` (rodar com `./gradlew test`).
 
 ## 5. React no front-end (bônus)
 
-**Status:** ⏳ Pendente
+**Status:** ✅ Implementado
 
 A etapa usa React nas visualizações pedidas no bônus do enunciado e reaproveita as abas, os estilos, os exemplos e as respostas JSON atuais. Os simuladores continuam executando no backend Java.
 
-- [ ] Começar pelo Autômato com Pilha e usar React para renderizar a pilha e navegar pelos passos.
-- [ ] Aplicar o mesmo padrão aos estados ativos do AFD e do AFN e à fita com o cabeçote da Máquina de Turing. Compartilhar os controles de navegação e manter o visual atual.
-- [ ] Integrar a compilação do front à aplicação servida pelo Spring Boot. Conferir os exemplos e a navegação por etapa nas quatro abas e registrar a tecnologia usada no README.
+- [x] Renderizar a pilha e navegar pelos passos no AP com React.
+- [x] Aplicar o mesmo padrão aos estados ativos do AFD e do AFN e à fita com o cabeçote da MT, com controles compartilhados e os estilos do projeto.
+- [x] Compilar o front no Gradle e servir o pacote pelo Spring Boot. Conferir a navegação das quatro abas no navegador e registrar a tecnologia no README.
+
+Em 27/11/2026, as quatro visualizações foram verificadas no Chrome com o JAR executável.
 
 ## 6. Fechamento da entrega
 
-- [ ] Revisar o fluxo de demonstração dos seis módulos em dupla.
-- [ ] Elaborar o documento técnico de até 15 páginas, com UML e casos de uso.
-- [ ] Preparar a apresentação de 10 minutos e conferir a versão que será entregue no GitHub.
+- [x] Preparar o [roteiro de demonstração](../ROTEIRO-APRESENTACAO.md) para os seis blocos do enunciado.
+- [x] Validar os exemplos das seis abas pela API e no Chrome com o JAR executável. Os 46 testes JUnit passaram.
+- [ ] Ensaiar a demonstração com a dupla.
+- [x] Elaborar o [relatório técnico](../RELATORIO-TECNICO.pdf), com UML, casos de uso, implementação e análise assintótica.
+- [x] Preparar a [apresentação de 10 minutos](../APRESENTACAO.pptx).
+- [ ] Conferir o commit definitivo no GitHub após a publicação da versão local. A branch `feat/glc-ap-mt` existe no remoto e ainda não contém `frontend/package.json`.

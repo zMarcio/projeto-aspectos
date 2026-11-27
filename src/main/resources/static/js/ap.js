@@ -1,4 +1,6 @@
-ligarSimulacao('ap', '/api/ap', 'ap-enunciado.json', lerAp, preencherAp, mostrarAp);
+import { mostrarPilha } from './visualizacoes.js';
+
+ligarSimulacao('ap', '/api/ap', 'ap-enunciado.json', lerAp, preencherAp, mostrarPilha);
 
 function lerAp() {
   const transicoes = $('ap-transicoes').value.split('\n').flatMap((linha, indice) => {
@@ -32,19 +34,4 @@ function preencherAp(exemplo) {
   $('ap-transicoes').value = exemplo.transicoes.map(t =>
     [t.origem, t.simbolo, t.topo, t.destino, t.empilha].join(' ')).join('\n');
   $('ap-cadeia').value = exemplo.cadeia;
-}
-
-function mostrarAp({ passos }) {
-  const linhas = passos.map(p => [p.numero, p.simbolo || '—', p.estado, p.consumidos, p.pilha.join(' ') || '∅']);
-  mostrarQuadros('ap', linhas, indice => {
-    const passo = passos[indice];
-    $('ap-configuracao').textContent = `Passo ${passo.numero} · Estado ${passo.estado} · Lido: ${passo.simbolo || '—'}`;
-    const itens = passo.pilha.map((simbolo, posicao) => {
-      const item = document.createElement('span');
-      item.className = posicao === 0 ? 'celula ativa' : 'celula';
-      item.textContent = simbolo;
-      return item;
-    });
-    $('ap-pilha').replaceChildren(...(itens.length ? itens : ['∅']));
-  });
 }

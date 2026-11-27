@@ -1,3 +1,5 @@
+import { mostrarFita } from './visualizacoes.js';
+
 const camposTuring = [
   ['estadoAtual', 'Estado atual'], ['simboloLido', 'Símbolo lido'], ['novoEstado', 'Novo estado'],
   ['simboloEscrito', 'Símbolo escrito'], ['direcao', 'Direção'],
@@ -52,21 +54,7 @@ function preencherTuring(exemplo) {
 function mostrarTuring(resultado) {
   $('mt-soma').classList.toggle('hidden', resultado.status !== 'ACEITA');
   $('mt-saida-fita').textContent = resultado.saida || 'λ';
-  const fita = $('mt-fita');
-  const linhas = resultado.passos.map(p => [p.numero, p.estado, p.simboloLido, p.cabecote]);
-  mostrarQuadros('mt', linhas, indice => {
-    const passo = resultado.passos[indice];
-    $('mt-configuracao').textContent = `Passo ${passo.numero} · Estado ${passo.estado} · Lê: ${passo.simboloLido}`;
-    const celulas = Array.from(passo.fita, (simbolo, posicao) => {
-      const celula = document.createElement('span');
-      celula.className = posicao === passo.cabecote ? 'celula ativa' : 'celula';
-      celula.textContent = simbolo;
-      return celula;
-    });
-    fita.replaceChildren(...celulas);
-    const cabecote = celulas[passo.cabecote];
-    fita.scrollLeft = cabecote.offsetLeft - Math.floor(fita.clientWidth / 2);
-  });
+  mostrarFita(resultado);
 }
 
 $('mt-adicionar').onclick = () => adicionarTransicaoTuring().querySelector('input').focus();

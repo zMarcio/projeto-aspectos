@@ -53,35 +53,3 @@ function ligarSimulacao(prefixo, rota, exemplo, ler, preencher, renderizar) {
   restaurar.onclick = carregar;
   carregar();
 }
-
-function mostrarQuadros(prefixo, linhas, desenhar) {
-  const tabela = $(`${prefixo}-passos`);
-  const corpo = tabela.tBodies[0];
-  const inicio = $(`${prefixo}-inicio`);
-  const anterior = $(`${prefixo}-anterior`);
-  const proximo = $(`${prefixo}-proximo`);
-  const fim = $(`${prefixo}-fim`);
-  const ultimo = linhas.length - 1;
-  let atual = 0;
-  corpo.replaceChildren();
-
-  function mostrar(indice) {
-    corpo.rows[atual].classList.remove('atual');
-    atual = indice;
-    corpo.rows[atual].classList.add('atual');
-    inicio.disabled = anterior.disabled = atual === 0;
-    proximo.disabled = fim.disabled = atual === ultimo;
-    desenhar(atual);
-  }
-
-  linhas.forEach((valores, indice) => {
-    const linha = corpo.insertRow();
-    for (const valor of valores) linha.insertCell().textContent = valor;
-    linha.onclick = () => mostrar(indice);
-  });
-  inicio.onclick = () => mostrar(0);
-  anterior.onclick = () => mostrar(atual - 1);
-  proximo.onclick = () => mostrar(atual + 1);
-  fim.onclick = () => mostrar(ultimo);
-  mostrar(ultimo);
-}

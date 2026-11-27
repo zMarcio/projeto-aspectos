@@ -52,7 +52,7 @@ Rode `./gradlew test`.
    </div>
    ```
 2. **`js/ap.js`** — leia os inputs, chame `postJson('/api/ap', corpo)`, mostre com `mostrarFaixa(...)`.
-   Use `ligarSimulacao` para formulários e `mostrarQuadros` para navegar pelos passos, como nas abas AP e MT.
+   Use `ligarSimulacao` para formulários. Para um rastro navegável em React, use o componente `PassoAPasso` em `frontend/src/`, seguindo o exemplo das abas AP e MT.
 3. Inclua o script no fim do `index.html`: `<script src="js/ap.js"></script>`.
 4. CSS extra (pilha, fita) vai em `css/estilo.css`.
 5. Exemplos em `src/main/resources/static/exemplos/<modulo>-*.json`.

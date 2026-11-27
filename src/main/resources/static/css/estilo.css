@@ -79,4 +79,5 @@ tr.atual { background: var(--ok-bg); }
 .transicoes-mt { min-width: 500px; }
 .transicoes-mt select { padding: 8px; color: var(--text); background: var(--bg);
                         border: 1px solid var(--border); border-radius: 6px; }
-#ap-passos tbody tr, #mt-passos tbody tr { cursor: pointer; }
+.titulo-passos { margin-top: 18px; }
+.tabela-passos tbody tr { cursor: pointer; }

@@ -1,7 +1,7 @@
 # Simulador de Linguagens Formais e Modelos Computacionais
 
 Projeto prático (AV3) de **Aspectos Teóricos da Computação**.
-Backend em **Java 21 + Spring Boot**, frontend em **HTML + CSS + JavaScript puro**, um módulo por aba.
+Backend em **Java 21 + Spring Boot**. A interface usa HTML, CSS e JavaScript, com **React** nas visualizações de AFD, AFN, Autômato com Pilha e Máquina de Turing.
 
 | # | Módulo | Status | Spec |
 |---|--------|--------|------|
@@ -18,13 +18,27 @@ Regras e painel de controle em [`docs/specs/000-visao-geral.md`](docs/specs/000-
 
 ## Como executar
 
-```bash
-./gradlew bootRun      # Windows: gradlew.bat bootRun
-```
-Abra http://localhost:8080. Testes: `./gradlew test`. Precisa de JDK 21 (o Gradle baixa se faltar).
+Use **JDK 21** e **Node.js com npm**. Rode `./gradlew bootRun` no Linux/macOS ou `.\gradlew.bat bootRun` no PowerShell. O Gradle instala as dependências do front e compila as visualizações com esbuild. O Spring Boot serve a interface e a API em [localhost:8080](http://localhost:8080).
+
+Para rodar os testes, use `./gradlew test` ou `.\gradlew.bat test` no PowerShell.
 
 Guia completo: [`docs/COMO-USAR.md`](docs/COMO-USAR.md) ·
 Guia para novos módulos: [`docs/COMO-ADICIONAR-MODULO.md`](docs/COMO-ADICIONAR-MODULO.md)
+
+Para preparar e executar o JAR no PowerShell:
+
+```powershell
+.\gradlew.bat test bootJar
+java -jar build/libs/simulador-linguagens-formais-0.0.1-SNAPSHOT.jar
+```
+
+No Linux/macOS, use `./gradlew test bootJar` para compilar. A execução do JAR requer Java 21, com a interface já empacotada.
+
+## Materiais da entrega
+
+- [Relatório técnico](docs/RELATORIO-TECNICO.pdf)
+- [Apresentação](docs/APRESENTACAO.pptx) e [roteiro de demonstração em dupla](docs/ROTEIRO-APRESENTACAO.md)
+- [Análise de complexidade](docs/specs/007-complexidade.md)
 
 ## Exemplos de entrada e saída
 
@@ -74,6 +88,7 @@ src/main/resources/static/
 ├── css/estilo.css
 ├── js/                           # formulários, abas e renderização dos resultados
 └── exemplos/*.json
+frontend/                         # visualizações React e dependências npm
 docs/
 ├── specs/                        # SDD: uma spec por módulo
 ├── COMO-USAR.md
