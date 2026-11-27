@@ -56,7 +56,17 @@ Navegador (HTML + CSS + JS puro)      Spring Boot (Java 21)
 - Cadeia vazia: escrita e exibida como **`λ`** (também aceita vazio). Símbolos de alfabeto têm 1 caractere.
 - Toda classe de domínio tem teste em `src/test/java/...` (rodar com `./gradlew test`).
 
-## 5. Fechamento da entrega
+## 5. React no front-end (bônus)
+
+**Status:** ⏳ Pendente
+
+A etapa usa React nas visualizações pedidas no bônus do enunciado e reaproveita as abas, os estilos, os exemplos e as respostas JSON atuais. Os simuladores continuam executando no backend Java.
+
+- [ ] Começar pelo Autômato com Pilha e usar React para renderizar a pilha e navegar pelos passos.
+- [ ] Aplicar o mesmo padrão aos estados ativos do AFD e do AFN e à fita com o cabeçote da Máquina de Turing. Compartilhar os controles de navegação e manter o visual atual.
+- [ ] Integrar a compilação do front à aplicação servida pelo Spring Boot. Conferir os exemplos e a navegação por etapa nas quatro abas e registrar a tecnologia usada no README.
+
+## 6. Fechamento da entrega
 
 - [ ] Revisar o fluxo de demonstração dos seis módulos em dupla.
 - [ ] Elaborar o documento técnico de até 15 páginas, com UML e casos de uso.
