@@ -66,3 +66,18 @@ tr.atual { background: var(--ok-bg); }
 .estado.inicial::before { content: "→"; margin-right: 4px; color: var(--muted); }
 .estado.ativo { border-color: var(--head); background: var(--head); color: #1d2330; }
 .estado.ativo.final { box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--head); }
+
+.campo-modulo { margin-top: 12px; }
+.resultado.inconclusivo { background: var(--head); color: #1d2330; }
+.arvore { overflow-x: auto; }
+.arvore ul { margin: 0; padding-left: 24px; }
+.arvore ul:empty { display: none; }
+.celulas { position: relative; display: flex; gap: 4px; overflow-x: auto; padding: 4px 0; }
+.celula { display: grid; place-items: center; flex: 0 0 36px; height: 36px;
+          border: 1px solid var(--border); background: var(--cell); font-family: ui-monospace, monospace; }
+.celula.ativa { background: var(--head); border-color: var(--head); color: #1d2330; }
+.transicoes-mt { min-width: 500px; }
+.transicoes-mt select { padding: 8px; color: var(--text); background: var(--bg);
+                        border: 1px solid var(--border); border-radius: 6px; }
+.titulo-passos { margin-top: 18px; }
+.tabela-passos tbody tr { cursor: pointer; }

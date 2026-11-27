@@ -27,6 +27,34 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+def pastaFrontend = layout.projectDirectory.dir('frontend')
+def frontendGerado = layout.buildDirectory.dir('frontend')
+def comandoNpm = System.getProperty('os.name').startsWith('Windows')
+		? ['cmd.exe', '/d', '/c', 'npm.cmd'] : ['npm']
+def dependenciasFrontend = files(pastaFrontend.file('package.json'), pastaFrontend.file('package-lock.json'))
+
+def instalarFrontend = tasks.register('instalarFrontend', Exec) {
+	workingDir pastaFrontend.asFile
+	inputs.files dependenciasFrontend
+	outputs.dir pastaFrontend.dir('node_modules')
+	commandLine comandoNpm + ['ci', '--no-audit', '--no-fund']
+}
+
+def compilarFrontend = tasks.register('compilarFrontend', Exec) {
+	dependsOn instalarFrontend
+	workingDir pastaFrontend.asFile
+	inputs.files dependenciasFrontend
+	inputs.dir pastaFrontend.dir('src')
+	outputs.dir frontendGerado
+	def arquivo = frontendGerado.get().file('static/js/visualizacoes.js').asFile
+	def caminho = pastaFrontend.asFile.toPath().relativize(arquivo.toPath())
+	commandLine comandoNpm + ['run', 'build', '--', "--outfile=${caminho}"]
+}
+
+tasks.named('processResources') {
+	from compilarFrontend
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }

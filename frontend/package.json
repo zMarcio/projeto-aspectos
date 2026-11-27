@@ -1,0 +1,14 @@
+{
+  "name": "projeto-aspectos-frontend",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/visualizacoes.jsx --bundle --format=esm --jsx=automatic --minify --legal-comments=linked"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

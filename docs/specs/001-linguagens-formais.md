@@ -65,15 +65,7 @@ Resposta:
 Erro: `400 {"erro": "Símbolo 'a' repetido no alfabeto."}`
 
 ## 7. Complexidade
-n = |w|, k = |Σ|, m = tamanho máximo de Σ*.
-
-| Operação | Melhor (Ω) | Médio (Θ) | Pior (O) |
-|----------|-----------|-----------|----------|
-| Validar w ∈ Σ* | Ω(n) | Θ(n) | O(n) — sempre lê a cadeia toda |
-| Tamanho \|w\| | Ω(1) | Θ(1) | O(1) |
-| Concatenação | Ω(n+n₂) | Θ(n+n₂) | O(n+n₂) |
-| w ∈ L (HashSet) | Ω(n) | Θ(n) | O(n·\|L\|) (colisões) |
-| Gerar Σ* até m | Ω(m·kᵐ) | Θ(m·kᵐ) | O(m·kᵐ) — exponencial, por isso o limite de 2000 |
+O custo da validação inclui a busca na lista de símbolos inválidos já encontrados. O custo da enumeração é proporcional ao total de caracteres produzidos. Os limites e as hipóteses das demais operações estão na [análise de complexidade](007-complexidade.md).
 
 ## 8. Critérios de aceite (testes em `LinguagemFormalTest`)
 - [x] Σ={a,b}, w=`abba` → "Cadeia válida para Σ", tamanho 4 (exemplo do enunciado)

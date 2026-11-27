@@ -60,57 +60,6 @@ function ligarArquivoJson(p) {
   };
 }
 
-// ---------- Visualização passo a passo ----------
-// "quadros" é uma lista; cada quadro = { ativos: [estados acesos], info: 'html' }.
-// A linha i da tabela de passos corresponde ao quadro i.
-const navegacao = {};
-
-function mostrarExecucao(p, automato, quadros) {
-  navegacao[p] = { automato, quadros, atual: 0 };
-  irParaQuadro(p, 0);
-}
-
-function irParaQuadro(p, i) {
-  const nav = navegacao[p];
-  if (!nav) return;
-  nav.atual = Math.max(0, Math.min(i, nav.quadros.length - 1));
-  const q = nav.quadros[nav.atual];
-
-  // Desenha cada estado como uma "bolinha"; inicial tem seta, final tem borda dupla, ativo fica amarelo
-  $(p + '-desenho').innerHTML = nav.automato.estados.map(e => {
-    const classes = ['estado'];
-    if (e === nav.automato.estadoInicial) classes.push('inicial');
-    if (nav.automato.estadosFinais.includes(e)) classes.push('final');
-    if (q.ativos.includes(e)) classes.push('ativo');
-    return `<div class="${classes.join(' ')}">${esc(e)}</div>`;
-  }).join('');
-  $(p + '-info').innerHTML = q.info;
-
-  document.querySelectorAll(`#${p}-passos tbody tr`).forEach((tr, idx) => tr.classList.toggle('atual', idx === nav.atual));
-  $(p + '-inicio').disabled = $(p + '-anterior').disabled = nav.atual === 0;
-  $(p + '-proximo').disabled = $(p + '-fim').disabled = nav.atual === nav.quadros.length - 1;
-}
-
-function ligarNavegacao(p) {
-  $(p + '-inicio').onclick = () => irParaQuadro(p, 0);
-  $(p + '-anterior').onclick = () => irParaQuadro(p, navegacao[p].atual - 1);
-  $(p + '-proximo').onclick = () => irParaQuadro(p, navegacao[p].atual + 1);
-  $(p + '-fim').onclick = () => irParaQuadro(p, navegacao[p].quadros.length - 1);
-}
-
-// Preenche a tabela de passos; clicar numa linha pula para aquele quadro
-function preencherTabela(p, linhas) {
-  const tbody = document.querySelector(`#${p}-passos tbody`);
-  tbody.innerHTML = '';
-  linhas.forEach((celulas, i) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = celulas.map(c => `<td>${esc(c)}</td>`).join('');
-    tr.style.cursor = 'pointer';
-    tr.onclick = () => irParaQuadro(p, i);
-    tbody.appendChild(tr);
-  });
-}
-
 // Executa: lê o formulário, chama o backend e entrega a resposta para "desenhar"
 async function executarAutomato(p, url, desenhar) {
   const automato = lerAutomato(p);

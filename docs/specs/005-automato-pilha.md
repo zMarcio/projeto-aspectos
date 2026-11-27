@@ -1,45 +1,40 @@
 # Spec 005 — Autômato com Pilha (AP)
 
-| Campo      | Valor |
-|------------|-------|
-| Status     | ⏳ Pendente (não iniciado) |
-| Módulo     | Módulo 4 do enunciado |
-| Endpoint   | `POST /api/ap` (proposto) |
-| Aba        | `5. Autômato com Pilha` (proposta) |
+| Campo | Valor |
+|---|---|
+| Status | ✅ Implementado |
+| Módulo | 4 do enunciado |
+| Endpoint | POST /api/ap |
+| Aba | 5. Autômato com Pilha |
 
-> Rascunho. Reaproveite `DefinicaoAutomato` (pacote `automato`) para Q, Σ, q0 e F.
+## Requisitos e regras
 
-## 2. Requisitos (do enunciado)
-- [ ] Pilha, empilhar, desempilhar
-- [ ] Linguagem mínima: L = { aⁿbⁿ | n ≥ 1 }
-- [ ] Mostrar a cada passo: leitura (símbolo lido), estado, conteúdo da pilha
+- [x] Usar uma pilha, empilhar e desempilhar.
+- [x] Reconhecer `aⁿbⁿ` para `n ≥ 1` com o exemplo fornecido.
+- [x] Mostrar símbolo lido, estado, símbolos consumidos e pilha a cada passo.
+- Cada transição recebe origem, leitura, topo, destino e substituição do topo. O primeiro símbolo da substituição fica no topo. Use `λ` como leitura vazia ou como substituição para apenas desempilhar.
+- As transições são determinísticas. Para um mesmo estado e topo, um movimento `λ` é exclusivo. Sem ele, cada símbolo lido tem no máximo uma transição.
+- A aceitação exige cadeia consumida e estado final. Sem uma transição aplicável fora dessa condição, a execução rejeita. O limite é de 1.000 transições ou 1.000 símbolos na pilha.
 
-## 3. Entradas propostas
-Igual ao AFD + alfabeto da pilha e transições `δ(q, a, X) = (p, γ)`:
-```json
-{
-  "estados": ["q0","q1","q2"], "alfabeto": ["a","b"], "alfabetoPilha": ["A","Z"],
-  "estadoInicial": "q0", "estadosFinais": ["q2"], "simboloInicialPilha": "Z",
-  "transicoes": [
-    {"origem":"q0","simbolo":"a","topo":"Z","destino":"q0","empilha":"AZ"},
-    {"origem":"q0","simbolo":"a","topo":"A","destino":"q0","empilha":"AA"},
-    {"origem":"q0","simbolo":"b","topo":"A","destino":"q1","empilha":"λ"},
-    {"origem":"q1","simbolo":"b","topo":"A","destino":"q1","empilha":"λ"},
-    {"origem":"q1","simbolo":"λ","topo":"Z","destino":"q2","empilha":"Z"}
-  ],
-  "cadeia": "aabb"
-}
-```
+## Algoritmo e contrato
 
-## 4. Algoritmo sugerido
-Começar determinístico (como o AFD, com `java.util.ArrayDeque` como pilha): a cada passo procura a
-transição para (estado, símbolo lido ou λ, topo); desempilha o topo e empilha `empilha` (da direita
-para a esquerda). Aceita por estado final ao fim da cadeia. Passo registra `estado`, `lido`, `pilha`.
+O simulador consulta as transições por estado e topo e escolhe a leitura disponível. Usa `ArrayDeque` para substituir o topo. O registro inicial tem número 0 e os demais registram a configuração após cada transição.
 
-## 7. Complexidade (a preencher)
-AP determinístico: Θ(n) passos.
+A requisição do exemplo está em [ap-enunciado.json](../../src/main/resources/static/exemplos/ap-enunciado.json). A resposta contém `status`, `mensagem` e `passos`. Cada passo traz `numero`, `simbolo`, `estado`, `consumidos` e `pilha` em ordem do topo para a base.
 
-## 11. Histórico
+## Critérios de aceite
+
+- O exemplo aceita `ab` e `aabb` e rejeita `λ`, `aab`, `abb` e `abab`.
+- Para `aabb`, a pilha chega a `[A, A, Z]` e termina em `[Z]` depois do passo `λ`.
+- Conflitos de determinismo retornam HTTP 400. Um ciclo que consome o orçamento produz `LIMITE_ATINGIDO`.
+
+## Complexidade
+
+Cada passo custa proporcionalmente ao tamanho da substituição e da pilha registrada. Para o exemplo `aⁿbⁿ`, a execução faz `Θ(n)` transições na aceitação e o rastro completo custa `Θ(n²)`. [Tabela de complexidade](007-complexidade.md)
+
+## Histórico
+
 | Data | O que mudou |
-|------|-------------|
+|---|---|
 | 2026-11-20 | Rascunho criado. |
+| 2026-11-27 | AP determinístico integrado, com navegação pelo rastro da pilha. |

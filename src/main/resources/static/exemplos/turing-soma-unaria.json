@@ -1,0 +1,12 @@
+{
+  "entrada": "000100",
+  "estadoInicial": "q0",
+  "estadoAceitacao": "q3",
+  "transicoes": [
+    { "estadoAtual": "q0", "simboloLido": "0", "novoEstado": "q0", "simboloEscrito": "0", "direcao": "D" },
+    { "estadoAtual": "q0", "simboloLido": "1", "novoEstado": "q1", "simboloEscrito": "0", "direcao": "D" },
+    { "estadoAtual": "q1", "simboloLido": "0", "novoEstado": "q1", "simboloEscrito": "0", "direcao": "D" },
+    { "estadoAtual": "q1", "simboloLido": "B", "novoEstado": "q2", "simboloEscrito": "B", "direcao": "E" },
+    { "estadoAtual": "q2", "simboloLido": "0", "novoEstado": "q3", "simboloEscrito": "B", "direcao": "D" }
+  ]
+}
