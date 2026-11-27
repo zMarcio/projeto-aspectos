@@ -1,0 +1,10 @@
+{
+  "variaveis": ["S"],
+  "terminais": ["a", "b"],
+  "simboloInicial": "S",
+  "producoes": [
+    { "esquerda": "S", "direita": "aSb" },
+    { "esquerda": "S", "direita": "λ" }
+  ],
+  "cadeia": "aaabbb"
+}

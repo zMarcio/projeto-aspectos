@@ -1,0 +1,16 @@
+{
+  "estados": ["q0", "q1", "q2"],
+  "alfabeto": ["a", "b"],
+  "alfabetoPilha": ["A", "Z"],
+  "estadoInicial": "q0",
+  "estadosFinais": ["q2"],
+  "simboloInicialPilha": "Z",
+  "transicoes": [
+    { "origem": "q0", "simbolo": "a", "topo": "Z", "destino": "q0", "empilha": "AZ" },
+    { "origem": "q0", "simbolo": "a", "topo": "A", "destino": "q0", "empilha": "AA" },
+    { "origem": "q0", "simbolo": "b", "topo": "A", "destino": "q1", "empilha": "λ" },
+    { "origem": "q1", "simbolo": "b", "topo": "A", "destino": "q1", "empilha": "λ" },
+    { "origem": "q1", "simbolo": "λ", "topo": "Z", "destino": "q2", "empilha": "Z" }
+  ],
+  "cadeia": "aabb"
+}

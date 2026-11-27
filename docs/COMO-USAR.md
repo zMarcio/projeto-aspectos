@@ -61,13 +61,28 @@ Formato do JSON (igual para AFD e AFN, e igual ao corpo da API):
 ```
 Exemplos prontos em `src/main/resources/static/exemplos/`.
 
-## 4. Usando a API direto (curl)
+## 4. Gramática Livre de Contexto
+
+Use **Carregar exemplo** e execute `aaabbb` com as produções `S -> aSb` e `S -> λ`. A aba mostra a derivação e a árvore. Coloque uma alternativa por linha e use um caractere por variável ou terminal. Uma busca interrompida pelos limites é exibida como inconclusiva.
+
+## 5. Autômato com Pilha
+
+Carregue o exemplo `aⁿbⁿ` e execute `aabb`. Navegue pelo rastro para observar a leitura, o estado e a pilha com o topo à esquerda. Nas transições, uma leitura `λ` preserva a posição da entrada, e uma substituição `λ` remove o topo sem colocar um novo símbolo. Use nomes de estado sem espaços nos campos da aba.
+
+## 6. Máquina de Turing
+
+Use **Restaurar exemplo de soma** e execute `000100` para obter `00000`. Cada `0` é uma unidade, `1` separa as parcelas e `B` indica uma célula em branco nas transições. A tabela é editável. A navegação mostra a posição do cabeçote na fita em cada passo.
+
+## 7. Usando a API direto (curl)
 
 ```bash
 E=src/main/resources/static/exemplos
 curl -s -H 'Content-Type: application/json' -d @$E/linguagem-enunciado.json localhost:8080/api/linguagem
 curl -s -H 'Content-Type: application/json' -d @$E/afd-enunciado.json       localhost:8080/api/afd
 curl -s -H 'Content-Type: application/json' -d @$E/afn-termina-em-ab.json   localhost:8080/api/afn
+curl -s -H 'Content-Type: application/json' -d @$E/glc-enunciado.json      localhost:8080/api/glc
+curl -s -H 'Content-Type: application/json' -d @$E/ap-enunciado.json       localhost:8080/api/ap
+curl -s -H 'Content-Type: application/json' -d @$E/turing-soma-unaria.json localhost:8080/api/turing
 ```
 
 Erros de validação voltam como `HTTP 400 {"erro": "mensagem"}`.

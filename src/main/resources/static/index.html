@@ -16,6 +16,9 @@
     <button data-aba="aba-linguagem" class="ativa">1. Linguagens Formais</button>
     <button data-aba="aba-afd">2. AFD</button>
     <button data-aba="aba-afn">3. AFN</button>
+    <button data-aba="aba-glc">4. GLC</button>
+    <button data-aba="aba-ap">5. Autômato com Pilha</button>
+    <button data-aba="aba-turing">6. Máquina de Turing</button>
   </nav>
 
   <!-- ===================== 1. LINGUAGENS FORMAIS ===================== -->
@@ -139,6 +142,117 @@
       </div>
     </section>
   </div>
+
+  <div class="aba" id="aba-glc">
+    <section>
+      <h2>Gramática Livre de Contexto</h2>
+      <form id="glc-form">
+        <div class="grid">
+          <div><label for="glc-variaveis">Variáveis (vírgula)</label><input id="glc-variaveis" required></div>
+          <div><label for="glc-terminais">Terminais (vírgula)</label><input id="glc-terminais"></div>
+          <div><label for="glc-inicial">Símbolo inicial</label><input id="glc-inicial" required></div>
+          <div><label for="glc-cadeia">Cadeia de entrada</label><input id="glc-cadeia"></div>
+        </div>
+        <label for="glc-producoes" class="campo-modulo">Uma produção por linha, como <code>S -&gt; aSb</code> ou <code>S -&gt; λ</code></label>
+        <textarea id="glc-producoes"></textarea>
+        <div class="actions">
+          <button type="button" id="glc-exemplo">Carregar exemplo</button>
+          <button class="primary" id="glc-simular">Executar</button>
+        </div>
+      </form>
+    </section>
+    <section id="glc-saida" class="hidden">
+      <h2>Resultado</h2>
+      <div id="glc-resultado" class="resultado" role="status"></div>
+      <div id="glc-visual">
+        <h2>Derivação mais à esquerda</h2>
+        <div id="glc-derivacao" class="caminho"></div>
+        <h2 class="campo-modulo">Árvore de derivação</h2>
+        <div id="glc-arvore" class="arvore"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="aba" id="aba-ap">
+    <section>
+      <h2>Autômato com Pilha Determinístico</h2>
+      <form id="ap-form">
+        <div class="grid">
+          <div><label for="ap-estados">Estados (vírgula)</label><input id="ap-estados" required></div>
+          <div><label for="ap-alfabeto">Alfabeto de entrada (vírgula)</label><input id="ap-alfabeto" required></div>
+          <div><label for="ap-alfabeto-pilha">Alfabeto da pilha (vírgula)</label><input id="ap-alfabeto-pilha" required></div>
+          <div><label for="ap-inicial">Estado inicial</label><input id="ap-inicial" required></div>
+          <div><label for="ap-finais">Estados finais (vírgula)</label><input id="ap-finais"></div>
+          <div><label for="ap-inicial-pilha">Símbolo inicial da pilha</label><input id="ap-inicial-pilha" required></div>
+          <div><label for="ap-cadeia">Cadeia de entrada</label><input id="ap-cadeia"></div>
+        </div>
+        <label for="ap-transicoes" class="campo-modulo">Uma transição por linha, no formato <code>origem leitura topo destino substituição</code></label>
+        <textarea id="ap-transicoes" aria-describedby="ap-ajuda"></textarea>
+        <p class="hint" id="ap-ajuda">Use <code>λ</code> para avançar sem ler ou para remover o topo sem substituí-lo. O primeiro símbolo da substituição fica no topo.</p>
+        <div class="actions">
+          <button type="button" id="ap-exemplo">Carregar exemplo aⁿbⁿ</button>
+          <button class="primary" id="ap-simular">Executar</button>
+        </div>
+      </form>
+    </section>
+    <section id="ap-saida" class="hidden">
+      <h2>Resultado</h2>
+      <div id="ap-resultado" class="resultado" role="status"></div>
+      <div id="ap-visual">
+        <p id="ap-configuracao" class="info" aria-live="polite"></p>
+        <h2>Pilha (topo à esquerda)</h2>
+        <div id="ap-pilha" class="celulas"></div>
+        <div class="actions">
+          <button id="ap-inicio" aria-label="Primeiro passo">⏮</button><button id="ap-anterior" aria-label="Passo anterior">◀</button>
+          <button id="ap-proximo" aria-label="Próximo passo">▶</button><button id="ap-fim" aria-label="Último passo">⏭</button>
+        </div>
+        <div class="table-wrap campo-modulo"><table id="ap-passos">
+          <thead><tr><th>Passo</th><th>Lê</th><th>Estado</th><th>Símbolos consumidos</th><th>Pilha</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="aba" id="aba-turing">
+    <section>
+      <h2>Máquina de Turing</h2>
+      <form id="mt-form">
+        <div class="grid">
+          <div><label for="mt-entrada">Entrada</label><input id="mt-entrada" maxlength="1000"></div>
+          <div><label for="mt-inicial">Estado inicial</label><input id="mt-inicial" required></div>
+          <div><label for="mt-aceitacao">Estado de aceitação</label><input id="mt-aceitacao" required></div>
+        </div>
+        <p class="hint">Na soma unária, <code>0</code> representa uma unidade e <code>1</code> separa as parcelas. Use <code>B</code> apenas nas transições para representar o branco da fita.</p>
+        <div class="table-wrap"><table class="transicoes-mt">
+          <thead><tr><th>Estado atual</th><th>Lê</th><th>Novo estado</th><th>Escreve</th><th>Direção</th><th>Ação</th></tr></thead>
+          <tbody id="mt-transicoes"></tbody>
+        </table></div>
+        <div class="actions">
+          <button type="button" id="mt-adicionar">Adicionar transição</button>
+          <button type="button" id="mt-exemplo">Restaurar exemplo de soma</button>
+          <button class="primary" id="mt-simular">Executar</button>
+        </div>
+      </form>
+    </section>
+    <section id="mt-saida" class="hidden">
+      <h2>Resultado</h2>
+      <div id="mt-resultado" class="resultado" role="status"></div>
+      <div id="mt-visual">
+        <p id="mt-soma">Saída final da fita <code id="mt-saida-fita"></code></p>
+        <p id="mt-configuracao" class="info" aria-live="polite"></p>
+        <div id="mt-fita" class="celulas"></div>
+        <div class="actions">
+          <button id="mt-inicio" aria-label="Primeiro passo">⏮</button><button id="mt-anterior" aria-label="Passo anterior">◀</button>
+          <button id="mt-proximo" aria-label="Próximo passo">▶</button><button id="mt-fim" aria-label="Último passo">⏭</button>
+        </div>
+        <div class="table-wrap campo-modulo"><table id="mt-passos">
+          <thead><tr><th>Passo</th><th>Estado</th><th>Símbolo sob o cabeçote</th><th>Posição do cabeçote</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </div>
+    </section>
+  </div>
 </main>
 
 <script src="js/comum.js"></script>
@@ -146,5 +260,9 @@
 <script src="js/linguagem.js"></script>
 <script src="js/afd.js"></script>
 <script src="js/afn.js"></script>
+<script src="js/simulacao.js"></script>
+<script src="js/glc.js"></script>
+<script src="js/ap.js"></script>
+<script src="js/turing.js"></script>
 </body>
 </html>
